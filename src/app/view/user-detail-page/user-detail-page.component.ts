@@ -1,36 +1,33 @@
-import { Component, OnDestroy, OnInit, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnDestroy, EventEmitter, Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { distinctUntilChanged, takeUntil, map } from "rxjs/operators";
-
-import { UserDetailUseCase } from '../../usecase/user-detail.usecase';
+import { takeUntil, map, distinctUntilChanged } from "rxjs/operators";
+import { UserDetailUseCase } from "../../usecase/user-detail.usecase";
 
 @Component({
   templateUrl: "./user-detail-page.component.html",
   styleUrls: ["./user-detail-page.component.css"],
 })
-
 export class UserDetailPageComponent implements OnInit, OnDestroy {
-  user$ = this.userDetailUseCase.user$;
+  user$ = this.userDetailUsecase.user$;
 
   private onDestroy$ = new EventEmitter();
 
   constructor(
     private route: ActivatedRoute,
-    private userDetailsUseCase: UserDetailUseCase
+    private userDetailUsecase: UserDetailUseCase
   ) {}
-
 
   ngOnInit() {
     this.route.params
-    .pipe(
-      takeUntil(this.onDestroy$),
-      map(params => params["userId"]),
-      distinctUntilChanged()
-    )
-    .subscribe(userId => this.userDetailsUseCase.fetchUser(userId));
+      .pipe(
+        takeUntil(this.onDestroy$),
+        map(params => params["userId"]),
+        distinctUntilChanged()
+      )
+      .subscribe(userId => this.userDetailUsecase.fetchUser(userId));
   }
 
   ngOnDestroy() {
-    this.onDestroy$.complete();
+    this.onDestroy$.next();
   }
 }

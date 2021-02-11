@@ -8,6 +8,17 @@ import { Store } from '../service/store.service';
 @Injectable({ providedIn: 'root' })
 export class UserListUseCase {
 
+  get users$() {
+    return this.store
+      .select(state => state.userList)
+      .pipe(
+        map(({ items, filter }) =>
+          items.filter(user => (user.first_name + user.last_name).includes(filter.nameFilter)
+          )
+        )
+      );
+  }
+
   get filter$() {
     return this.store.select(state => state.userList.filter);
   }

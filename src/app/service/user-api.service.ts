@@ -4,7 +4,6 @@ import { map } from 'rxjs/operators';
 
 import { User } from '../user';
 
-
 const apiHost = "https://reqres.in/api";
 
 interface ApiResponse<T> {

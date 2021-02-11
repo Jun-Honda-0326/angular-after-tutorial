@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserListUseCase } from './usecase/user-list.usercase.';
+import { UserListUseCase } from './usecase/user-list.usecase.';
 import { UserListFilter } from './state';
 
 @Component({

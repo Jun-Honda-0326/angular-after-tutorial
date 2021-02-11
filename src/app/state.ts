@@ -9,7 +9,7 @@ export interface State {
     items: User[];
     filter: UserListFilter;
   }
-  userDertail: {
+  userDetail: {
     user: User | null;
   }
 }
